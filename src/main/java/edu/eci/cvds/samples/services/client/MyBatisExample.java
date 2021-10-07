@@ -83,10 +83,10 @@ public class MyBatisExample {
             //System.out.println(itemMapper.consultarItem(2));
             
 
-            tipoItemMapper.addTipoItem("Hola Juan carlos");
+            tipoItemMapper.addTipoItem("Hola dieg");
             TipoItem tipo = tipoItemMapper.getTipoItem(1);
-            itemMapper.insertarItem(new Item(tipo, 2165335, "Sebastian", "Dhupapi", new Date(), 23330000, "formatoRenta", "undefined"));
-            cm.agregarItemRentadoACliente(98347, 2165335, new Date(), new Date());
+            itemMapper.insertarItem(new Item(tipo, 22222, "Sebastian", "Dhupapi", new Date(), 23330000, "formatoRenta", "undefined"));
+            cm.agregarItemRentadoACliente(98347, 22222, new Date(), new Date());
 
             sqlss.commit();
         
