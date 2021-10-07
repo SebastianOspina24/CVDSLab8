@@ -21,10 +21,20 @@ package edu.eci.cvds.samples.services.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Date;
+
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper;
+
+import edu.eci.cvds.samples.entities.Item;
+import edu.eci.cvds.samples.entities.TipoItem;
 
 /**
  *
@@ -60,19 +70,34 @@ public class MyBatisExample {
     public static void main(String args[]) throws SQLException {
         SqlSessionFactory sessionfact = getSqlSessionFactory();
 
-        SqlSession sqlss = sessionfact.openSession();
+        try(SqlSession sqlss = sessionfact.openSession();){
+            ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+            ItemMapper itemMapper = sqlss.getMapper(ItemMapper.class);
+            TipoItemMapper tipoItemMapper = sqlss.getMapper(TipoItemMapper.class);
 
+
+            //System.out.println(cm.consultarClientes());
+            //System.out.println(cm.consultarCliente(234));
+            //System.out.println(itemMapper.consultarItems());
+
+            //System.out.println(itemMapper.consultarItem(2));
+            
+
+            tipoItemMapper.addTipoItem("Hola Juan carlos");
+            TipoItem tipo = tipoItemMapper.getTipoItem(1);
+            itemMapper.insertarItem(new Item(tipo, 2165335, "Sebastian", "Dhupapi", new Date(), 23330000, "formatoRenta", "undefined"));
+            cm.agregarItemRentadoACliente(98347, 2165335, new Date(), new Date());
+
+            sqlss.commit();
         
-        //Crear el mapper y usarlo: 
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
         
-        
-        
-        sqlss.commit();
-        
-        
-        sqlss.close();
+            sqlss.close();
+
+
+        }catch(Exception e){
+                e.printStackTrace();
+        }
+
 
         
         
