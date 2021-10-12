@@ -36,5 +36,24 @@
   <select parameterType="map" id="consultarItems" resultMap="ItemResult">
     select * from VI_ITEMS
   </select>
+
+  <select parameterType="map" id="consultarDisponibles" resultMap="ItemResult">
+        
+    SELECT
+        r.id,
+        r.nombre,
+        r.descripcion,
+        r.fechalanzamiento,
+        r.tarifaxdia,
+        r.formatorenta,
+        r.genero,
+        ti.id as ti_id,
+        ti.descripcion as ti_descripcion
+
+       FROM VI_ITEMS AS r
+       LEFT JOIN VI_TIPOITEM AS ti ON r.TIPOITEM_id=ti.id
+      LEFT JOIN VI_ITEMRENTADO AS b ON r.id=b.ITEMS_id
+      WHERE b.ITEMS_id IS null
+</select>
     
 </mapper>

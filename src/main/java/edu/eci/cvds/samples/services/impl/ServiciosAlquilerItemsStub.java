@@ -19,13 +19,12 @@ import java.util.Map;
 public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
    private static final int MULTA_DIARIA=5000;
-   //private final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+   private final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 
    private final Map<Long,Cliente> clientes;
    private final Map<Integer,Item> itemsDisponibles;
    private final Map<Integer,ItemRentado> itemsrentados;
    private final Map<Integer,TipoItem> tipositems;
-
    private final Map<Integer,Long> mapaPrestamosPorIdCliente;
 
    public ServiciosAlquilerItemsStub() {
@@ -43,12 +42,16 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
    }
 
    @Override
-   public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler {
+   public Cliente consultarCliente(long docu) throws ExcepcionServiciosAlquiler{
        Cliente c=null;
-       if(clientes.containsKey(docu)){
+       if(clientes.containsKey(docu)){           
            c=clientes.get(docu);
+       }else{
+      
+           throw new ExcepcionServiciosAlquiler("El cliente con documento "+docu+" no esta registrado.");
        }
        return c;
+       
    }
 
    @Override
@@ -102,9 +105,9 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
    @Override
    public void actualizarTarifaItem(int id, long tarifa) throws ExcepcionServiciosAlquiler {
-       if (!itemsDisponibles.containsKey(id)) {
+       if (itemsDisponibles.containsKey(id)) {
            Item c = itemsDisponibles.get(id);
-           c.setTarifaxDia(tarifa);
+           System.out.println(c);
            itemsDisponibles.put(id, c);
        } else {
            throw new ExcepcionServiciosAlquiler("El item " + id + " no esta registrado.");
@@ -114,8 +117,10 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
    @Override
    public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
        TipoItem i = null;
-       if(!tipositems.containsKey(id)){
+       if(tipositems.containsKey(id)){
            i=tipositems.get(id);
+       }else{
+           throw new ExcepcionServiciosAlquiler("TipoItem no registrado:"+id);
        }
        return i;
 
@@ -156,7 +161,6 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
    }
 
-   /**
    private Cliente consultarClienteConItem(int iditem) throws ExcepcionServiciosAlquiler{
        if (mapaPrestamosPorIdCliente.containsKey(iditem)){  
            long idcli=mapaPrestamosPorIdCliente.get(iditem);
@@ -172,7 +176,6 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
           throw new ExcepcionServiciosAlquiler("El item "+iditem+ " no esta alquilado.");
        }
    }
-   */
 
    @Override
    public long consultarMultaAlquiler(int iditem,Date fechaDevolucion) throws ExcepcionServiciosAlquiler{
@@ -223,7 +226,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
 
        ItemRentado ir1=new ItemRentado(0,i1, java.sql.Date.valueOf("2017-01-01"), java.sql.Date.valueOf("2017-03-12"));
        ItemRentado ir2=new ItemRentado(0,i2, java.sql.Date.valueOf("2017-01-04"), java.sql.Date.valueOf("2017-04-7"));
-       ItemRentado ir3=new ItemRentado(0,i3, java.sql.Date.valueOf("2017-01-07"), java.sql.Date.valueOf("2017-07-12"));
+       ItemRentado ir3=new ItemRentado(0,i1, java.sql.Date.valueOf("2017-01-07"), java.sql.Date.valueOf("2017-07-12"));
 
        ArrayList<ItemRentado> list1 = new ArrayList<>();
        list1.add(ir1);
