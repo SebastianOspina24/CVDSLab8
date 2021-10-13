@@ -60,7 +60,7 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
    }
 
    @Override
-   public void registrarCliente(Cliente p) throws ExcepcionServiciosAlquiler {
+   public void insertarCliente(Cliente p) throws ExcepcionServiciosAlquiler {
        if (!clientes.containsKey(p.getDocumento())) {
            clientes.put(p.getDocumento(), p);
        } else {

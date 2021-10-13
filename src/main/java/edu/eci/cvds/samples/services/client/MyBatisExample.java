@@ -71,28 +71,24 @@ public class MyBatisExample {
         SqlSessionFactory sessionfact = getSqlSessionFactory();
 
         try(SqlSession sqlss = sessionfact.openSession();){
-            ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
-            ItemMapper itemMapper = sqlss.getMapper(ItemMapper.class);
-            TipoItemMapper tipoItemMapper = sqlss.getMapper(TipoItemMapper.class);
-
-
-            //System.out.println(cm.consultarClientes());
-            //System.out.println(cm.consultarCliente(234));
-            //System.out.println(itemMapper.consultarItems());
-
-            //System.out.println(itemMapper.consultarItem(2));
             
+        ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+     
 
-            tipoItemMapper.addTipoItem("Hola dieg");
-            TipoItem tipo = tipoItemMapper.getTipoItem(1);
-            itemMapper.insertarItem(new Item(tipo, 22222, "Sebastian", "Dhupapi", new Date(), 23330000, "formatoRenta", "undefined"));
-            cm.agregarItemRentadoACliente(98347, 22222, new Date(), new Date());
+        System.out.println(cm.consultarClientes());
+        System.out.println(cm.consultarCliente(1));
 
-            sqlss.commit();
+        System.out.println(cm.consultarCliente(2165335));
+        
+        ItemMapper im = sqlss.getMapper(ItemMapper.class);
+
+        System.out.println(im.consultarItems());
+        System.out.println(im.consultarItem(2165335));
         
         
-            sqlss.close();
-
+        sqlss.commit();
+       
+        sqlss.close();
 
         }catch(Exception e){
                 e.printStackTrace();

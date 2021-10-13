@@ -124,7 +124,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    }
 
    @Override
-   public void registrarCliente(Cliente c) throws ExcepcionServiciosAlquiler {
+   public void insertarCliente(Cliente c) throws ExcepcionServiciosAlquiler {
        try {
            clienteDAO.save(c);
        } catch (PersistenceException ex) {
