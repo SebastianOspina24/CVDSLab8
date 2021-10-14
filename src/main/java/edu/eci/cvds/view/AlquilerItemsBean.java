@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.cvds.view;
 
 import com.google.inject.Inject;
@@ -49,6 +44,19 @@ public class AlquilerItemsBean extends BasePageBean{
         
     }
 
+    public void consulta(long documento){
+        try {
+            if(documento != 0){
+            clientes.clear();
+            clientes.add(serviciosAlquiler.consultarCliente(documento));}
+            else{
+                clientes = serviciosAlquiler.consultarClientes();
+            }
+        } catch (ExcepcionServiciosAlquiler ex) {
+            Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void insertarCliente(String nombre, long documento, String telefono, String direccion, String email){
         try {
             serviciosAlquiler.insertarCliente(new Cliente(nombre,documento,telefono,direccion,email));
@@ -66,6 +74,7 @@ public class AlquilerItemsBean extends BasePageBean{
             Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     
     private void consultarMulta(){
         long total=0;

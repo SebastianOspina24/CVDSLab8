@@ -6,12 +6,16 @@
       xmlns:p="http://primefaces.org/ui">
 
       <style>
-        .page{
+        body{
             padding: 10%;
             font-family: Verdana, "impact",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
             background-color: rgb(93, 1, 179);
             color: white;
             font-family: sans-serif;
+            align-self: center;
+            text-align: center;
+            align-items: center;
+            align-content: center;
         }
         .formbox{
             border-radius: 5px ;
@@ -26,18 +30,23 @@
             font-size: 24px;
         }
         .botn{
-            width: 10%;
-            height: auto;
+            width: 30%;
+            height: 25px;
             margin: 10px;
-            padding: auto;
-
+            padding: 5px;
+            background: greenyellow;
+            color: black;
+            text-decoration: none;
+            border-color: black ;
+            border: 5px;
+            border-radius: 5px;
         }
 
         .gri{
-            width: 100%;
             background: rgba(131, 112, 241, 0.664);
             display: grid;
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 30% 30%;
+            padding: 10%;
         }
 
         .table{
@@ -49,34 +58,38 @@
         }
 
     </style>
+<title>Registro Cliente</title>
+    <body class= "page">
+        
 
 
-
-    <h:head>
-        <title>Registro Cliente</title>
-    </h:head>
-    <h:body class = "page">
         <p>Registro Clientes</p>
+        <h:form id="consulta">
+            <h1>Busque por numero de documento</h1>
+            <input   id="Documento" type="long" binding="#{doc}"/>
+            <p:commandButton update="consulta" class="botn" value="Consultar" actionListener="#{Alquiler.consulta(doc.value)}"/>
+        </h:form>
+
         <h:form id="formRegisterCliente" class="formbox">
             <p:dataTable value="#{Alquiler.clientes}" var="cl" class = "table">
-                <h:column headerText="Documento">
-                <p:outputLabel class = "answers" value="#{cl.documento}"/>
-                </h:column>
-                <h:column headerText="Nombre">
-                <p:outputLabel class = "answers" value="#{cl.nombre}"/>
-                </h:column>
-                <h:column headerText="Telefono">
-                <p:outputLabel class = "answers" value="#{cl.telefono}"/>
-                </h:column>
-                <h:column headerText="DirecciÃ³n">
-                <p:outputLabel class = "answers" value="#{cl.direccion}"/>
-                </h:column>
-                <h:column headerText="Email">
-                <p:outputLabel class = "answers" value="#{cl.email}"/>
-                </h:column>
-                <h:column>
-                <h:commandLink value="Seleccionar" actionListener="#{Alquiler.setSeleccionado(cl)}" action="#{navigationController.paginaAlquiler()}"/>
-                </h:column>
+                <p:column headerText="Documento">
+                    <p:outputLabel value="#{cl.documento}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <p:outputLabel value="#{cl.nombre}"/>
+                </p:column>
+                <p:column headerText="Telefono">
+                    <p:outputLabel value="#{cl.telefono}"/>
+                </p:column>
+                <p:column headerText="Dirección">
+                    <p:outputLabel value="#{cl.direccion}"/>
+                </p:column>
+                <p:column headerText="Email">
+                    <p:outputLabel value="#{cl.email}"/>
+                </p:column>
+                <p:column>
+                    <h:commandLink value="Seleccionar" class="botn" actionListener="#{Alquiler.setSeleccionado(cl)}" action="#{navigationController.paginaAlquiler()}"/>
+                </p:column>
             </p:dataTable>
             <div class="gri">
                 <h1> Documento</h1>
@@ -89,8 +102,8 @@
                 <p:inputText id="Direccion" type="String" binding="#{dir}"/>
                 <h1>Email</h1>
                 <p:inputText id="Email" type="String" binding="#{mail}"/>
-                <p:commandButton update="formRegisterCliente" class="botn" value="Registrar" actionListener="#{Alquiler.registrarCliente(name.value, doc.value, tele.value, dir.value, mail.value)}"/>
             </div>
+            <p:commandButton update="formRegisterCliente" class="botn" value="Registrar" actionListener="#{Alquiler.insertarCliente(name.value, doc.value, tele.value, dir.value, mail.value)}"/>
         </h:form>
-    </h:body>
+    </body>
 </html>

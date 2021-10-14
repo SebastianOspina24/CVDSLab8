@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      <style>
+        body{
+            padding: 10%;
+            font-family: Verdana, "impact",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+            background-color: rgb(93, 1, 179);
+            color: white;
+            font-family: sans-serif;
+            align-self: center;
+            text-align: center;
+            align-items: center;
+            align-content: center;
+        }
+
+        .botn{
+            width: 30%;
+            height: 25px;
+            margin: 10px;
+            padding: 5px;
+            background: greenyellow;
+            color: black;
+            text-decoration: none;
+        }
+        </style>
+        <title>VideoTienda</title>
+    <h:body>
+        <p:outputLabel value="Bienvenido a la VideoTienda"/>
+        <h:form id="form1">
+            <p:commandButton class="botn" value="Registrar Cliente" actionListener="#{Alquiler.inicio()}" action="#{navigationController.paginaCliente()}"/>
+        </h:form>
+    </h:body>
+</html>
+
